@@ -9,6 +9,15 @@ options = webdriver.ChromeOptions()
 options.headless = True
 driver = webdriver.Chrome(options=options)
 
+
+def modify_url(url):
+    if not url.startswith('http'):
+        url = 'https://' + url
+    if not url.startswith('www.'):
+        url = url.replace('://', '://www.')
+    return url
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -16,6 +25,7 @@ def index():
 @app.route('/screenshot', methods=['POST'])
 def screenshot():
     url = request.form['url']
+    url = modify_url(url)  # Modify the URL to handle differents user input
     screenshot_type = request.form['screenshotType']
     
     driver.get(url)
@@ -24,12 +34,17 @@ def screenshot():
         # Add code to capture full page screenshot
         # Refer to the search results for capturing a full page screenshot
         # Save the screenshot to a file
-        driver.save_screenshot('full_page_screenshot.png')
+        width=1920
+        height= driver.execute_script("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.offsetHeight);")
+        driver.set_window_size(width,height)
+        page_body=driver.find_element(By.TAG_NAME,"body")
+        page_body.screenshot("full_page_screenshot.png")
+        
     else:
         # Capture visible area screenshot
-        S = lambda X: driver.execute_script('return document.body.parentNode.scroll'+X)
-        driver.set_window_size(S('Width'),S('Height'))
-        driver.find_element_by_tag_name('body').screenshot('visible_area_screenshot.png')
+        driver.set_window_size(1920,1080)
+        driver.save_screenshot('visible_area_screenshot.png')
+
 
     driver.quit()
     
