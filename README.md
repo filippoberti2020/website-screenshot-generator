@@ -2,6 +2,8 @@
 
 This is a web application built with Python Flask and Selenium that allows users to take and download screenshots of websites.
 
+![Preview of the website](preview.png)
+
 ## Features
 
 - Capture full-page screenshots of any website.
