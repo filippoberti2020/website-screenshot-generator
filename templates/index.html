@@ -13,9 +13,9 @@
         body {
             background-color: black;
             display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Adjust this based on your layout */    
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Adjust this based on your layout */    
             font-family: 'IBM Plex Sans', sans-serif;
         }
         h1{
@@ -42,13 +42,19 @@
             border-radius: 10px;
             font-size: 1em;
             font-weight: 400;
+            padding: 10px;
         }
         .search{
-            background-color: rgba(255, 255, 255, 0.192);
-            color: grey;
+            background-color: rgba(255, 255, 255, 0.137);
+            color: rgb(170, 170, 170);
             border-radius: 5px;
             max-width: 500px;
             height: 48px;
+            border: none;
+            outline: none;
+            width: 40%;
+            margin-bottom: 10px;
+            padding: 8px;
         }
         .text-selection{
             color: white;
@@ -66,22 +72,47 @@
             width: 750px;
             margin: 0 auto;
         }
+        .inline{
+            display: inline-block; 
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.9em;
+                width: 100%;
+                font-weight: 700;
+            }
+            
+            p {
+                font-size: 0.9em;
+            }
+            .description {
+                width: 80%;
+                padding: 0 20px;
+            }
+            .search{ 
+                max-width: 500px;
+                width: 80%;    
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Website Screenshot Generator</h1>
         <div class="description">
-            <p>A free open-source website tool that aloows you to take <strong>high-quality screenshots</strong> with the power of python. </p>
+            <p>A free open-source website tool that aloows you to take <strong style="color: white;">high-quality screenshots</strong> with the power of python. </p>
         </div>
        
         <form class="form-item" action="/screenshot" method="post">
-            <label for="url">Enter the URL:</label><br>
-            <input class="search"  type="text" id="url" name="url"><br>
-            <input type="radio" id="fullpage" name="screenshotType" value="fullpage">
-            <label class="text-selection" for="fullpage">Full Page</label><br>
-            <input type="radio" id="visiblearea" name="screenshotType" value="visiblearea">
-            <label class="text-selection" for="visiblearea">Visible Area</label><br>
+            <input class="search"  type="text" id="url" name="url" placeholder="Enter the website URL (e.g., www.example.com)"><br>
+            <div class="inline">
+                <input type="radio" id="fullpage" name="screenshotType" value="fullpage" checked>
+                <label class="text-selection" for="fullpage">Full Page</label><br>
+                <input type="radio" id="visiblearea" name="screenshotType" value="visiblearea">
+                <label class="text-selection" for="visiblearea">Visible Area</label><br>
+            </div>
             <input class="button" type="submit" value="Take Screenshot">
         </form>
     </div>
